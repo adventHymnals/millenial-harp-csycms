@@ -19,7 +19,7 @@ jobs:
       - name: Download and process csycms hymnals
         run: |
           cp hymnals.yaml /tmp/
-          rm -rf ./*
+          ls -A1 | xargs rm -rf
           git clone https://github.com/adventHymnals/quato-hymnal-template.git .
           cp /tmp/hymnals.yaml ./
           wget -O csycmstoquarto.sh https://raw.githubusercontent.com/adventHymnals/resources/master/scripts/csycmstoquarto.sh
