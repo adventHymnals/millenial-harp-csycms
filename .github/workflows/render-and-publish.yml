@@ -26,6 +26,7 @@ jobs:
           sed -i '2,2d;' csycmstoquarto.sh # delete the second line
           chmod +x csycmstoquarto.sh
           ./csycmstoquarto.sh
+          rm -rf .git
           ls -lha
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -36,10 +37,20 @@ jobs:
           # version: 0.9.600
       
       # add software dependencies here
-
-      - name: Publish to GitHub Pages (and render)
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
+      - name: "render"
+        run : quarto render
+      # Deploy to local repo
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
+          REPO: self
+          BRANCH: gh-pages
+          FOLDER: _site
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Publish to GitHub Pages (and render)
+      #   uses: quarto-dev/quarto-actions/publish@v2
+      #   with:
+      #     target: gh-pages
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
