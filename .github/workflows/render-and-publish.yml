@@ -26,6 +26,7 @@ jobs:
           sed -i '2,2d;' csycmstoquarto.sh # delete the second line
           chmod +x csycmstoquarto.sh
           ./csycmstoquarto.sh
+          ls -lha
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
